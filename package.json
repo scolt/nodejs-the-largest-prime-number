@@ -1,0 +1,24 @@
+{
+  "name": "PrimeNumber",
+  "version": "1.0.0",
+  "description": "App for finding prime number, nearest to max provided value.",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "server": "node ./server/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scolt/nodejs-the-largest-prime-number.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scolt/nodejs-the-largest-prime-number/issues"
+  },
+  "homepage": "https://github.com/scolt/nodejs-the-largest-prime-number",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
