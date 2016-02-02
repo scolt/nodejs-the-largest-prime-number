@@ -1,0 +1,23 @@
+var http = require('http'),
+    router = require('./components/routing'),
+    calculate = require('./components/calculate');
+
+router.allowCrossOrigin();
+
+router.create('/prime-number', 'POST', function (req, res) {
+    var start = Date.now();
+    var result = calculate.findByMaxValue(req.params.maxValue);
+    var end = Date.now();
+
+    var data = JSON.stringify({
+        number: result,
+        time: end-start
+    });
+    res.end(data);
+});
+
+router.create('/prime-number', 'OPTIONS', function (req, res) {res.end()});
+
+http.createServer(function (request, response) {
+    router.check(request, response);
+}).listen(3000);
