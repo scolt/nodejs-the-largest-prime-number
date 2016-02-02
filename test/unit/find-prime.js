@@ -1,5 +1,5 @@
 var expect    = require("chai").expect;
-var calculate = require("../server/components/calculate");
+var calculate = require("../../server/components/calculate");
 
 describe("Find largest prime numebr by max value", function() {
     describe("for the lower limit numbers", function () {

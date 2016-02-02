@@ -4,7 +4,8 @@
   "description": "App for finding prime number, nearest to max provided value.",
   "main": "server/app.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec",
+    "test-unit": "./node_modules/.bin/mocha --reporter spec ./test/unit",
+    "test-e2e": "./node_modules/.bin/mocha --reporter spec ./test/e2e",
     "server": "node ./server/app"
   },
   "repository": {
