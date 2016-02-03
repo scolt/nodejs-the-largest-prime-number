@@ -20,6 +20,7 @@
   "homepage": "https://github.com/scolt/nodejs-the-largest-prime-number",
   "dependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "request": "^2.69.0"
   }
 }

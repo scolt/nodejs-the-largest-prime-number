@@ -17,4 +17,8 @@ App for finding prime number, nearest to max provided value.
 
 # How to run unit tests
 1. Run command line in administrator mode
-2. Run test command `npm test` or `npm run test-unit`
+2. Run test command `npm run test-unit`
+
+# How to run e2e tests
+1. Run command line in administrator mode
+2. Run test command `npm run test-e2e`
