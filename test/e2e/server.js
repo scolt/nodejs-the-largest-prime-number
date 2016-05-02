@@ -27,8 +27,29 @@ describe('server', function () {
                 url:'http://localhost:1222/prime-number',
                 json: {maxValue: value}
             }, function(err,res,body){
-                console.log(body);
                 expect(body.number).to.equal(value);
+                done();
+            });
+        });
+
+        it('should return 500 for invalid value', function (done) {
+            var value = 3571;
+            request.post({
+                url:'http://localhost:1222/prime-number',
+                json: {maxValue: 'SOME-NaN-VALUE'}
+            }, function(err,res){
+                expect(res.statusCode).to.equal(500);
+                done();
+            });
+        });
+
+        it('should return 500 for empty value', function (done) {
+            var value = 3571;
+            request.post({
+                url:'http://localhost:1222/prime-number',
+                json: {maxValue: ''}
+            }, function(err,res){
+                expect(res.statusCode).to.equal(500);
                 done();
             });
         });

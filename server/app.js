@@ -12,14 +12,22 @@ app.
     use(bodyParser.json())
     .post('/prime-number', function (req, res) {
         var start = Date.now();
-        var result = calculate.findByMaxValue(req.body.maxValue);
-        var end = Date.now();
 
-        var data = JSON.stringify({
-            number: result,
-            time: end-start
-        });
-        res.end(data);
+        var value = req.body.maxValue;
+        if (!value) {
+            res.status(500).end('maxValue not provided');
+        } else if (typeof value  === 'string' && isNaN(parseInt(value))) {
+            res.status(500).end('maxValue should be a valid number');
+        } else {
+            var result = calculate.findByMaxValue(value);
+            var end = Date.now();
+
+            var data = JSON.stringify({
+                number: result,
+                time: end-start
+            });
+            res.end(data);
+        }
     });
 
 app.listen(port, () => {console.log(`${new Date()} Listening at ${port}`);});
