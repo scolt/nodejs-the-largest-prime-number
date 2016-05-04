@@ -19,6 +19,11 @@ if (cluster.isMaster) {
     }
 
     cluster.on('online', function(worker) {
+        worker.on('message', function (message) {
+            if (message.type && message.type === 'averageTime') {
+                logger.info(`Average response time for process ${message.worker}: ${message.message}ms`)
+            }
+        });
         logger.debug(`Worker ${worker.process.pid} is online`);
     });
 
@@ -26,7 +31,6 @@ if (cluster.isMaster) {
         logger.debug(`Worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}. Starting a new worker`);
         cluster.fork();
     });
-
 } else {
     app.
     use(cors()).
