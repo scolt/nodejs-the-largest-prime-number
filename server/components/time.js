@@ -1,7 +1,8 @@
 'use strict';
 module.exports = responseTime;
 
-let logger = require('./logger');
+let logger = require('./logger'),
+    clusterActions = require('./clusters');
 
 let averageTime = {
     sum: 0,
@@ -18,12 +19,11 @@ function responseTime(req, res, next) {
         let time = diff[0] * 1e3 + diff[1] * 1e-6;
         logger.silly(`Process ${process.pid} finished processing request after ${time}ms`);
         res.setHeader("Response-Time", time);
-        resOriginEnd.apply(this, arguments);
-        process.send({
+        clusterActions.sendToMaster({
             type: 'averageTime',
-            message: getMiddleTime(time),
-            worker: process.pid
+            message: getMiddleTime(time)
         });
+        resOriginEnd.apply(this, arguments);
     };
     next();
 }
