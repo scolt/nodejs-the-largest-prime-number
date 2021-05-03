@@ -3,16 +3,21 @@
 let express = require("express"),
     cors = require('cors'),
     bodyParser = require('body-parser'),
+    cluster = require('cluster'),
     calculate = require('./components/calculate'),
     time = require('./components/time'),
+    logger = require('./components/logger'),
     app = express(),
     port = 1222;
 
-app.
+let clustering = require('./components/clusters');
+
+clustering.init(function () {
+    app.
     use(cors()).
     use(bodyParser.json()).
-    use(time)
-    .post('/prime-number', function (req, res) {
+    use(time).
+    post('/prime-number', function (req, res) {
         let value = req.body.maxValue;
         if (!value) {
             res.status(500).end('maxValue not provided');
@@ -26,5 +31,12 @@ app.
             res.end(data);
         }
     });
+    app.listen(port, () => {logger.info(`Server listening at ${port}`);});
+}, function (message) {
+    if (message.type && message.type === 'averageTime') {
+        logger.info(`Average response time for process ${message.worker}: ${message.message}ms`)
+    }
+});
 
-app.listen(port, () => {console.log(`${new Date()} Listening at ${port}`);});
+
+
